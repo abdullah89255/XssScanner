@@ -32,53 +32,6 @@
    python XSS4g.py
    ```
 
----
-
-## 🛠️ Usage
-
-1. **Basic Scan**:
-   ```bash
-   python XSS4g.py -u <URL>
-   ```
-   Example:
-   ```bash
-   python XSS4g.py -u "http://example.com"
-   ```
-
-2. **Custom Payload**:
-   ```bash
-   python XSS4g.py -u <URL> --payload <PAYLOAD>
-   ```
-   Example:
-   ```bash
-   python XSS4g.py -u "http://example.com" --payload "<script>alert('XSS')</script>"
-   ```
-
-3. **File Input**:
-   Scan multiple URLs from a file:
-   ```bash
-   python XSS4g.py -f urls.txt
-   ```
-
-4. **Output Results**:
-   Save results to a file:
-   ```bash
-   python XSS4g.py -u <URL> -o output.txt
-   ```
-
----
-
-## ⚙️ Options
-
-| Option        | Description                                 |
-|---------------|---------------------------------------------|
-| `-u`          | Target URL to scan.                        |
-| `-f`          | File containing a list of URLs.            |
-| `--payload`   | Specify a custom XSS payload.              |
-| `-o`          | Save results to an output file.            |
-| `--help`      | Show help message and usage information.   |
-
----
 
 ## 🖼️ Screenshots
 
