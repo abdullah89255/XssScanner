@@ -18,8 +18,8 @@
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Hackpy3/XSS4g.git
-   cd XSS4g
+   git clone https://github.com/Hackpy3/XssScanner
+   cd XssScanner
    ```
 
 2. Install required dependencies:
