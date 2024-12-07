@@ -1,4 +1,4 @@
-# 🚀 XSS4g
+# 🚀 XSS Scanner 
 
 **XSS4g** is a powerful and user-friendly tool designed for penetration testers and security enthusiasts to identify and exploit Cross-Site Scripting (XSS) vulnerabilities. Its lightweight design and flexible functionality make it an excellent choice for testing web applications.
 
