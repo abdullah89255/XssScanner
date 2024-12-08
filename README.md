@@ -124,10 +124,8 @@ This tool is for **educational purposes** and **authorized testing** only. Unaut
 
 ---
 
-Made ❤️ by [Mamun]  
-
---- 
 
 Let me know if you need further adjustments or more features added! 😊
+
 --- 
-Happy Testing! 🎯
+Made ❤️ by [Mamun]  
