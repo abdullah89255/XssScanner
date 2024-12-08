@@ -22,6 +22,7 @@ Ensure you have the following installed:
 - **Python 3.x**  
 - Required libraries:  
   ```bash
+   pip install requests
   pip install requests beautifulsoup4
   ```  
 
