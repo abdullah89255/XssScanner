@@ -1,84 +1,131 @@
-# 🚀 XSS Scanner 
+# 🌐 XSS Scanner 🚀  
 
-**XSS4g** is a powerful and user-friendly tool designed for penetration testers and security enthusiasts to identify and exploit Cross-Site Scripting (XSS) vulnerabilities. Its lightweight design and flexible functionality make it an excellent choice for testing web applications.
-
----
-
-## ✨ Features
-
-- 🔍 **Scan** for various types of XSS vulnerabilities.
-- 🖥️ **User-friendly interface** with intuitive commands.
-- ⚡ **Lightweight** and efficient – works seamlessly on most systems.
-- 🎯 **Customizable payloads** for advanced exploitation.
-- 📄 **Reporting and logging** to save and review your findings.
+An advanced **XSS vulnerability scanner** designed to identify Cross-Site Scripting (XSS) flaws in web applications. This tool automates payload injections for GET and POST requests, dynamically scans forms, and generates user-friendly HTML reports.  
 
 ---
 
-## 📥 Installation
+## ✨ Features  
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Hackpy3/XssScanner
-   cd XssScanner
+- 🛠 **Predefined Payloads**: Includes 10 powerful XSS payloads for testing.  
+- ✏️ **Custom Payloads**: Add your own payloads or load them from a `.txt` file.  
+- 🔍 **Form Detection**: Automatically scrapes forms from web pages for parameter testing.  
+- 📂 **Batch Scanning**: Scan multiple URLs from a `.txt` file.  
+- 🌐 **GET and POST Requests**: Supports testing both query parameters and form fields.  
+- 📊 **HTML Reports**: Generates clean, professional vulnerability reports.  
+
+---
+
+## 📦 Installation  
+
+### Prerequisites  
+Ensure you have the following installed:  
+- **Python 3.x**  
+- Required libraries:  
+  ```bash
+  pip install requests beautifulsoup4
+  ```  
+
+### Clone the Repository  
+```bash
+ git clone https://github.com/Hackpy3/XssScanner  
+cd XssScanner  
+```  
+
+---
+
+## 🚦 Usage  
+
+### Step 1: Run the Script  
+```bash
+python xss.py  
+```  
+
+### Step 2: Choose Your Options  
+1. 🛠 Use default payloads.  
+2. ✏️ Add custom payloads manually.  
+3. 📂 Load payloads from a `.txt` file.  
+
+### Step 3: Select Scanning Mode  
+- **Option 1**: Scan a single URL.  
+- **Option 2**: Scan multiple URLs from a file.  
+
+### Step 4: Save the Results (Optional)  
+Choose whether to save the output to a file. If saved, an **HTML report** is automatically generated!  
+
+---
+
+## 📄 Example Workflow  
+
+### Single URL Scan  
+1. Input the target URL:  
    ```
+   https://example.com  
+   ```  
+2. The script injects payloads into parameters and forms.  
+3. Results are displayed in the console or saved to a file.  
 
-2. Install required dependencies:
-   ```bash
-   pip install requests
+### Batch Scanning  
+1. Prepare a `.txt` file with URLs (one per line):  
    ```
-
-3. Run the tool:
-   ```bash
-   python xss.py
-   ```
-
-
-## 🖼️ Screenshots
-
-![XSS4g Screenshot](https://via.placeholder.com/800x400?text=Add+a+tool+demo+image+here)
+   https://example.com  
+   https://test.com  
+   ```  
+2. Provide the file path when prompted.  
+3. The scanner processes each URL and reports vulnerabilities.  
 
 ---
 
-## ⚠️ Disclaimer
+## 🛠 Default Payloads  
 
-> **Warning:**  
-> This tool is intended for **educational purposes** and **authorized penetration testing** only.  
-> 
-> 🚫 Unauthorized use of this tool to target systems without explicit permission is illegal and unethical.  
-> 
-> The author is **not responsible** for any misuse or damage caused by this software.  
-
-**Always ensure you have proper authorization before testing any system!** 🙏
-
----
-
-## 🤝 Contributions
-
-Contributions are welcome! If you’d like to enhance the functionality or fix a bug, feel free to:
-
-1. 🍴 Fork the repository.
-2. 🌿 Create a new branch for your feature/bugfix.
-3. ✅ Submit a pull request with a detailed explanation.
+1. `<script>alert('XSS')</script>`  
+2. `'"><script>alert('XSS')</script>`  
+3. `<img src='x' onerror='alert("XSS")'>`  
+4. `'"><svg onload=alert(1)>`  
+5. `'"><input type="image" src=x onerror=alert(1)>`  
+6. `javascript:alert('XSS')`  
+7. `<iframe src=javascript:alert('XSS')>`  
+8. `<body onload=alert('XSS')>`  
+9. `'"><link rel="stylesheet" href="javascript:alert('XSS')">`  
+10. `<base href="javascript:alert('XSS')">`  
 
 ---
 
-## 📜 License
+## 📊 Reports  
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+### Console Output  
+Real-time feedback during scans, showing:  
+- Vulnerable URLs  
+- Payloads causing vulnerabilities  
+
+### HTML Reports  
+A clean and professional report is automatically generated, summarizing:  
+- Tested URLs  
+- Detected vulnerabilities and payloads  
 
 ---
 
-## 📬 Contact
+## 🤝 Contributing  
 
-For questions or feedback, please open an issue on the [GitHub repository](https://github.com/Hackpy3/XSS4g/issues).
+We welcome contributions! Feel free to:  
+- Submit issues or feature requests 🐛  
+- Open pull requests with enhancements ✨  
 
 ---
 
-Happy Testing! 🎯
-```
+## 📜 License  
 
-### What's New:
-1. Added emojis to make the README more engaging.
-2. Improved the disclaimer section with clearer formatting and emphasis.
+This project is licensed under the MIT License. See the `LICENSE` file for details.  
 
-This version balances professionalism with readability while emphasizing ethical usage. Let me know if you want further tweaks! 🚀
+---
+
+## ⚠️ Disclaimer  
+
+This tool is for **educational purposes** and **authorized testing** only. Unauthorized use is strictly prohibited and may violate local, state, or federal laws.  
+
+---
+
+Made ❤️ by [Mamun]  
+
+--- 
+
+Let me know if you need further adjustments or more features added! 😊
