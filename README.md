@@ -21,10 +21,10 @@ An advanced **XSS vulnerability scanner** designed to identify Cross-Site Script
 Ensure you have the following installed:  
 - **Requirements**  
 - Required libraries:  
-  ```bash
-   pip install requests
-  pip install requests beautifulsoup4
-  ```  
+   Install the required libraries using `pip`:
+   ```bash
+   pip install -r requirements.txt
+  ```bash 
 
 ### Clone the Repository  
 ```bash
