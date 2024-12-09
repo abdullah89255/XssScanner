@@ -1,4 +1,2 @@
-argparse
-dnspython
 requests
 beautifulsoup4
