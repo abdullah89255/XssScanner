@@ -14,7 +14,14 @@ An advanced **XSS vulnerability scanner** designed to identify Cross-Site Script
 - 📊 **HTML Reports**: Generates clean, professional vulnerability reports.  
 
 ---
+### Requirements
 
+To run this project, ensure you have Python installed and install the required dependencies:
+
+ Install the required libraries using `pip`:
+   ```bash
+   pip install -r requirements.txt
+   ```
 ## 📦 Installation  
 
 ### Prerequisites  
