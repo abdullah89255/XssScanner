@@ -24,7 +24,7 @@ Ensure you have the following installed:
    Install the required libraries using `pip`:
    ```bash
    pip install -r requirements.txt
-  ```bash 
+   
 
 ### Clone the Repository  
 ```bash
