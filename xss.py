@@ -1,6 +1,7 @@
 import requests
 import sys
 import time
+import json
 from bs4 import BeautifulSoup
 import os
 
@@ -54,10 +55,10 @@ def test_payloads(url, payloads, method="GET", data=None):
             vulnerable = True
     return vulnerable
 
-def scan_xss(url, payloads, output_file=None):
+def scan_xss(url, payloads, results):
     print(f"🔍 Scanning URL: {url}")
-
     forms = scrape_form_fields(url)
+    vulnerable = False
 
     print("\n🌐 Testing GET requests...")
     vulnerable = test_payloads(url, payloads)
@@ -68,13 +69,10 @@ def scan_xss(url, payloads, output_file=None):
         if form['method'] == 'post':
             vulnerable |= test_payloads(action_url, payloads, method="POST", data=form['fields'])
 
-    if output_file:
-        with open(output_file, 'a') as file:
-            if vulnerable:
-                file.write(f"⚠️ URL: {url} is vulnerable.\n")
-            else:
-                file.write(f"✅ URL: {url} is not vulnerable.\n")
-
+    results.append({
+        "url": url,
+        "vulnerable": vulnerable
+    })
     if not vulnerable:
         print("✔️ No XSS vulnerabilities found.")
 
@@ -88,7 +86,7 @@ def load_payloads_from_file(file_path):
     print(f"📂 Loaded {len(payloads)} payloads from {file_path}")
     return payloads
 
-def scan_from_file(file_path, payloads, output_file=None):
+def scan_from_file(file_path, payloads, results):
     if not os.path.exists(file_path):
         print(f"❌ File not found: {file_path}")
         return
@@ -100,23 +98,21 @@ def scan_from_file(file_path, payloads, output_file=None):
         url = url.strip()
         if url:
             print(f"\n🌐 Scanning URL: {url}")
-            scan_xss(url, payloads, output_file)
+            scan_xss(url, payloads, results)
 
-def generate_report(output_file, html_report_file="report.html"):
-    if not os.path.exists(output_file):
-        print("❌ Output file not found. Cannot generate report.")
-        return
+def save_results_to_json(results, output_file="xss_results.json"):
+    with open(output_file, 'w') as file:
+        json.dump(results, file, indent=4)
+    print(f"\n📄 Results saved to: {output_file}")
 
-    with open(output_file, 'r') as file:
-        content = file.readlines()
-
+def generate_report(results, html_report_file="report.html"):
     with open(html_report_file, 'w') as html_file:
         html_file.write("<html><head><title>XSS Report</title></head><body>")
         html_file.write("<h1>XSS Vulnerability Report</h1><pre>")
-        html_file.writelines(content)
+        html_file.write(json.dumps(results, indent=4))
         html_file.write("</pre></body></html>")
 
-    print(f"📄 Report generated: {html_report_file}")
+    print(f"📄 HTML report generated: {html_report_file}")
 
 def main():
     animate_ascii_banner(ascii_banner)
@@ -146,24 +142,20 @@ def main():
         else:
             print("❌ Invalid choice.")
 
-    scan_mode = input("🔧 Enter '1' to scan a single URL or '2' to scan from a .txt file: ")
+    results = []
 
-    output_option = input("📁 Do you want to save the output to a file? (y/n): ").lower()
-    output_file = None
-    if output_option == 'y':
-        output_file = input("📝 Enter the file name for saving the output (e.g., results.txt): ")
+    scan_mode = input("🔧 Enter '1' to scan a single URL or '2' to scan from a .txt file: ")
 
     if scan_mode == '1':
         target_url = input("🌐 Enter the URL to scan: ")
-        scan_xss(target_url, payloads, output_file)
+        scan_xss(target_url, payloads, results)
     elif scan_mode == '2':
         file_path = input("📂 Enter the path to the .txt file containing URLs: ")
-        scan_from_file(file_path, payloads, output_file)
+        scan_from_file(file_path, payloads, results)
     else:
         print("❌ Invalid choice. Please enter '1' or '2'.")
 
-    if output_file:
-        generate_report(output_file)
+    save_results_to_json(results)
 
 if __name__ == "__main__":
     main()
