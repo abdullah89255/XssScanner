@@ -19,19 +19,17 @@ An advanced **XSS vulnerability scanner** designed to identify Cross-Site Script
 
 ### Prerequisites  
 Ensure you have the following installed:  
-- **Requirements**  
-- Required libraries:  
-   Install the required libraries using `pip`:
-   ```bash
-   pip install -r requirements.txt
-   
 
 ### Clone the Repository  
 ```bash
  git clone https://github.com/Hackpy3/XssScanner  
 cd XssScanner  
 ```  
-
+- **Requirements**  
+- Required libraries:  
+   Install the required libraries using `pip`:
+   ```bash
+   pip install -r requirements.txt
 ---
 
 ## 🚦 Usage  
