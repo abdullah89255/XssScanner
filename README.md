@@ -53,25 +53,11 @@ Choose whether to save the output to a file. If saved, an **HTML report** is aut
 
 ---
 
-## 📄 Example Workflow  
-
 ### URL Scan  
-### Key Changes:
-1. **`build_action_url`**:
+
+ **`build_action_url`**:
    - Handles `None` or relative paths for form actions.
    - Uses `requests.compat.urljoin` for constructing absolute URLs.
-
-2. **Improved HTTP Handling**:
-   - Added timeouts to HTTP requests.
-   - Uses `raise_for_status` to catch HTTP errors.
-
-3. **Better Feedback**:
-   - Logs missing forms and unsupported methods.
-   - Informs users when a URL cannot be processed.
-
-4. **Graceful Error Handling**:
-   - Handles file not found errors.
-   - Manages network issues gracefully.
 
 ### Usage:
 ```bash
