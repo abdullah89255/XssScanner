@@ -55,22 +55,51 @@ Choose whether to save the output to a file. If saved, an **HTML report** is aut
 
 ## 📄 Example Workflow  
 
-### Single URL Scan  
-1. Input the target URL:  
-   ```
-   https://example.com  
-   ```  
-2. The script injects payloads into parameters and forms.  
-3. Results are displayed in the console or saved to a file.  
+### URL Scan  
+### Key Changes:
+1. **`build_action_url`**:
+   - Handles `None` or relative paths for form actions.
+   - Uses `requests.compat.urljoin` for constructing absolute URLs.
 
-### Batch Scanning  
-1. Prepare a `.txt` file with URLs (one per line):  
+2. **Improved HTTP Handling**:
+   - Added timeouts to HTTP requests.
+   - Uses `raise_for_status` to catch HTTP errors.
+
+3. **Better Feedback**:
+   - Logs missing forms and unsupported methods.
+   - Informs users when a URL cannot be processed.
+
+4. **Graceful Error Handling**:
+   - Handles file not found errors.
+   - Manages network issues gracefully.
+
+### Usage:
+```bash
+python3 xss_URLS_scan.py <urls_file> <payloads_file>
+```
+
+- `<urls_file>`: A text file containing URLs (one URL per line).
+- `<payloads_file>`: A text file containing XSS payloads (one payload per line).
+
+### Example:
+1. **URLs File (`urls.txt`)**:
    ```
-   https://example.com  
-   https://test.com  
-   ```  
-2. Provide the file path when prompted.  
-3. The scanner processes each URL and reports vulnerabilities.  
+   http://example.com
+   http://test.com
+   ```
+
+2. **Payloads File (`payloads.txt`)**:
+   ```
+   "><script>alert('XSS')</script>
+   <img src=x onerror=alert(1)>
+   ```
+
+Command:
+```bash
+python3 xss_URLS_scan.py urls.txt payloads.txt
+```
+
+This will scan all URLs in `urls.txt` with payloads from `payloads.txt`. Let me know if you need further help!
 
 ---
 
