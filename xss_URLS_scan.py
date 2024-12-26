@@ -96,7 +96,7 @@ def scan_urls_from_file(file_path, payloads):
 def main():
     """Main entry point of the script."""
     if len(sys.argv) != 3:
-        print("Usage: python3 xss.py <urls_file> <payloads_file>")
+        print("Usage: python3 xss_URLS_scan.py <urls_file> <payloads_file>")
         sys.exit(1)
 
     urls_file = sys.argv[1]
