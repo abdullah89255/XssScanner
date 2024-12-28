@@ -39,46 +39,13 @@ cd XssScanner
 python xss.py  
 ```  
 
-### Step 2: Choose Your Options  
-1. 🛠 Use default payloads.  
-2. ✏️ Add custom payloads manually.  
-3. 📂 Load payloads from a `.txt` file.  
-
-### Step 3: Select Scanning Mode  
-- **Option 1**: Scan a single URL.  
-- **Option 2**: Scan multiple URLs from a file.  
-
-### Step 4: Save the Results (Optional)  
-Choose whether to save the output to a file. If saved, an **HTML report** is automatically generated!  
-
----
-
-### URL Scan  
-
- **`build_action_url`**:
-   - Handles `None` or relative paths for form actions.
-   - Uses `requests.compat.urljoin` for constructing absolute URLs.
-
-### Usage:
-```bash
+### Step 2 Directly URLs Scanning   
+  ```bash
 python3 xss_URLS_scan.py <urls_file> <payloads_file>
 ```
 
 - `<urls_file>`: A text file containing URLs (one URL per line).
 - `<payloads_file>`: A text file containing XSS payloads (one payload per line).
-
-### Example:
-1. **URLs File (`urls.txt`)**:
-   ```
-   http://example.com
-   http://test.com
-   ```
-
-2. **Payloads File (`payloads.txt`)**:
-   ```
-   "><script>alert('XSS')</script>
-   <img src=x onerror=alert(1)>
-   ```
 
 Command:
 ```bash
