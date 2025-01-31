@@ -22,7 +22,7 @@ Ensure you have the following installed:
 
 ### Clone the Repository  
 ```bash
- git clone https://github.com/Hackpy3/XssScanner  
+ git clone https://github.com/abdullah89255/XssScanner
 cd XssScanner  
 ```  
 - **Requirements**  
